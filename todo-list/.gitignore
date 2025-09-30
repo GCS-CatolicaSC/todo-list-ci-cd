@@ -1,0 +1,33 @@
+# Node modules
+/node_modules/
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Diretório de build (se existir)
+dist/
+build/
+
+# Dependências do sistema operacional
+.DS_Store
+
+# Arquivos temporários do editor
+*.swp
+*.swo
+
+# Ambiente local
+.env
+
+# Pasta do npm cache (caso use local)
+/.npm
+
+# Pasta do debugger VSCode (se usar)
+.vscode/
+
+# Outras pastas temporárias
+tmp/
+temp/
