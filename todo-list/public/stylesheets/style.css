@@ -1,8 +1,136 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+ 
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(180deg, #ffffff, #f8f6ff);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
 }
-
-a {
-  color: #00B7FF;
+ 
+.container {
+  max-width: 700px;
+  width: 100%;
+  background: #fff;
+  border-radius: 12px;
+  padding: 30px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
 }
+ 
+h1 {
+  text-align: center;
+  color: #7a3fff;
+  margin-bottom: 5px;
+}
+ 
+p.subtitle {
+  text-align: center;
+  color: #777;
+  margin-bottom: 20px;
+}
+ 
+.input-area {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+ 
+.input-area input {
+  flex: 1;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  outline: none;
+}
+ 
+.input-area button {
+  background: #7a3fff;
+  border: none;
+  color: #fff;
+  font-size: 18px;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+ 
+.input-area button:hover {
+  background: #5a2bd4;
+}
+ 
+.filters {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #fff;
+  border: 1px solid #eee;
+  border-radius: 10px;
+  padding: 10px 15px;
+  margin-bottom: 20px;
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.05);
+}
+ 
+.filters span {
+  color: #777;
+  font-size: 14px;
+}
+ 
+.filter-buttons button {
+  border: none;
+  background: none;
+  padding: 8px 14px;
+  margin: 0 3px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+ 
+.filter-buttons .active {
+  background: #7a3fff;
+  color: white;
+  font-weight: bold;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+ 
+.task-list {
+  background: #fff;
+  border-radius: 12px;
+  padding: 20px;
+  text-align: center;
+  color: #666;
+  font-size: 15px;
+  border: 1px solid #eee;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.05);
+}
+ 
+.task {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #f9f8ff;
+  border: 1px solid #eee;
+  padding: 12px 15px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+ 
+.task.completed {
+  text-decoration: line-through;
+  color: #999;
+}
+ 
+.task button {
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-size: 14px;
+  color: #7a3fff;
+}
+ 
