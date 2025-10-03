@@ -1,11 +1,58 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-  </head>
-  <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
-  </body>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Minhas Tarefas</title>
+  <link rel="stylesheet" href="/stylesheets/style.css">
+</head>
+<body>
+  <%
+    // MOCK DE TAREFAS (sem backend)
+    const tasks = [
+      { text: "Comprar pão", completed: false },
+      { text: "Estudar programação", completed: true },
+      { text: "Fazer exercícios", completed: false }
+    ];
+    const filter = "all"; // simula filtro ativo
+  %>
+ 
+  <div class="container">
+    <h1>✔ Minhas Tarefas</h1>
+    <p class="subtitle">Organize seu dia de forma simples e eficiente</p>
+ 
+    <!-- Campo para adicionar tarefa -->
+    <form class="input-area">
+      <input type="text" placeholder="Digite uma tarefa..." required>
+      <button type="button">+</button>
+    </form>
+ 
+    <!-- Filtros -->
+    <div class="filters">
+      <span><%= tasks.filter(t => !t.completed).length %> tarefas pendentes</span>
+      <div class="filter-buttons">
+        <button class="<%= filter === 'all' ? 'active' : '' %>">Todas</button>
+        <button class="<%= filter === 'active' ? 'active' : '' %>">Ativas</button>
+        <button class="<%= filter === 'completed' ? 'active' : '' %>">Concluídas</button>
+      </div>
+    </div>
+ 
+    <!-- Lista de tarefas -->
+    <div class="task-list">
+      <% if (tasks.length === 0) { %>
+        Nenhuma tarefa ainda. Comece adicionando uma!
+      <% } else { %>
+        <% tasks.forEach((task) => { %>
+          <div class="task <%= task.completed ? 'completed' : '' %>">
+            <span><%= task.text %></span>
+            <div>
+              <button><%= task.completed ? "Desmarcar" : "Concluir" %></button>
+              <button>Excluir</button>
+            </div>
+          </div>
+        <% }) %>
+      <% } %>
+    </div>
+  </div>
+</body>
 </html>
