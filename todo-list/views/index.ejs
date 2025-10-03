@@ -7,37 +7,30 @@
   <link rel="stylesheet" href="/stylesheets/style.css">
 </head>
 <body>
-  <%
-    // MOCK DE TAREFAS (sem backend)
-    const tasks = [
-      { text: "Comprar pão", completed: false },
-      { text: "Estudar programação", completed: true },
-      { text: "Fazer exercícios", completed: false }
-    ];
-    const filter = "all"; // simula filtro ativo
-  %>
- 
   <div class="container">
     <h1>✔ Minhas Tarefas</h1>
     <p class="subtitle">Organize seu dia de forma simples e eficiente</p>
- 
-    <!-- Campo para adicionar tarefa -->
-    <form class="input-area">
-      <input type="text" placeholder="Digite uma tarefa..." required>
-      <button type="button">+</button>
+
+    <form action="/tasks" method="POST" class="input-area">
+      <input type="text" name="text" placeholder="Digite uma tarefa..." required>
+      <button type="submit">+</button>
     </form>
- 
-    <!-- Filtros -->
+
     <div class="filters">
-      <span><%= tasks.filter(t => !t.completed).length %> tarefas pendentes</span>
+      <span><%= tasks.filter(t => !t.completed).length %> tarefa(s) pendente(s)</span>
       <div class="filter-buttons">
-        <button class="<%= filter === 'all' ? 'active' : '' %>">Todas</button>
-        <button class="<%= filter === 'active' ? 'active' : '' %>">Ativas</button>
-        <button class="<%= filter === 'completed' ? 'active' : '' %>">Concluídas</button>
+        <a href="/?filter=all">
+          <button type="button" class="<%= filter === 'all' ? 'active' : '' %>">Todas</button>
+        </a>
+        <a href="/?filter=active">
+          <button type="button" class="<%= filter === 'active' ? 'active' : '' %>">Ativas</button>
+        </a>
+        <a href="/?filter=completed">
+          <button type="button" class="<%= filter === 'completed' ? 'active' : '' %>">Concluídas</button>
+        </a>
       </div>
     </div>
- 
-    <!-- Lista de tarefas -->
+
     <div class="task-list">
       <% if (tasks.length === 0) { %>
         Nenhuma tarefa ainda. Comece adicionando uma!
@@ -46,8 +39,13 @@
           <div class="task <%= task.completed ? 'completed' : '' %>">
             <span><%= task.text %></span>
             <div>
-              <button><%= task.completed ? "Desmarcar" : "Concluir" %></button>
-              <button>Excluir</button>
+              <form action="/tasks/<%= task.id %>/toggle" method="POST" style="display:inline;">
+                <button type="submit"><%= task.completed ? "Desmarcar" : "Concluir" %></button>
+              </form>
+
+              <form action="/tasks/<%= task.id %>?_method=DELETE" method="POST" style="display:inline;">
+                <button type="submit">Excluir</button>
+              </form>
             </div>
           </div>
         <% }) %>
