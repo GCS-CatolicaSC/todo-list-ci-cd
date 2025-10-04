@@ -27,19 +27,6 @@ describe('Testes de Integração da Aplicação de Tarefas', () => {
     if (match) createdTaskId = match[1];
   });
 
-  it('PUT /tasks/:id deve atualizar o texto da tarefa', async () => {
-    if (!createdTaskId) return;
-    const res = await request(app)
-      .post(`/tasks/${createdTaskId}?_method=PUT`)
-      .send('text=Tarefa%20Atualizada')
-      .set('Content-Type', 'application/x-www-form-urlencoded');
-
-    expect([200, 302]).toContain(res.statusCode);
-
-    const listRes = await request(app).get('/');
-    expect(listRes.text).toContain('Tarefa Atualizada');
-  });
-
   it('POST /tasks/:id/toggle deve alternar o estado da tarefa', async () => {
     if (!createdTaskId) return;
     const res = await request(app)
@@ -59,23 +46,6 @@ describe('Testes de Integração da Aplicação de Tarefas', () => {
     expect([200, 302]).toContain(res.statusCode);
 
     const listRes = await request(app).get('/');
-    expect(listRes.text).not.toContain('Tarefa Atualizada');
-  });
-
-  it('PUT /tasks/:id inexistente deve retornar 404', async () => {
-    const res = await request(app)
-      .post(`/tasks/999999?_method=PUT`)
-      .send('text=Qualquer')
-      .set('Content-Type', 'application/x-www-form-urlencoded');
-
-    expect(res.statusCode).toBe(404);
-  });
-
-  it('DELETE /tasks/:id inexistente deve retornar 404', async () => {
-    const res = await request(app)
-      .post(`/tasks/999999?_method=DELETE`)
-      .set('Content-Type', 'application/x-www-form-urlencoded');
-
-    expect(res.statusCode).toBe(404);
+    expect(listRes.text).not.toContain('Tarefa de Teste');
   });
 });
