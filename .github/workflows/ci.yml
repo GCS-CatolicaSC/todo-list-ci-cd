@@ -9,6 +9,9 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./todo-list
 
     steps:
       - name: Checkout código
@@ -19,6 +22,7 @@ jobs:
         with:
           node-version: 20
           cache: 'npm'
+          cache-dependency-path: todo-list/package-lock.json
 
       - name: Instalar dependências
         run: npm install
