@@ -62,12 +62,12 @@ p.subtitle {
 }
  
 .input-area button:hover {
-  background: #5a2bd4;
+  background: #371296;
 }
  
 .filters {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-between; 
   align-items: center;
   background: #fff;
   border: 1px solid #eee;
@@ -96,8 +96,35 @@ p.subtitle {
   background: #7a3fff;
   color: white;
   font-weight: bold;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 5px rgba(168, 19, 19, 0.1);
 }
+
+.filter-buttons .Ativas {
+  background-color: #a985fc;  /* cor de fundo */
+  color: white; /* texto branco */
+}
+
+.filter-buttons .Ativas:hover {
+  background-color: #a985fc; 
+  color: white;/* tom mais escuro ao passar o mouse */
+}
+
+.filter-buttons .Concluidas {
+  background-color: #28a745; /* cor de fundo */
+  color: white; /* texto branco */
+}
+
+.filter-buttons .Concluidas:hover {
+  background-color: #218838; /* tom mais escuro ao passar o mouse */
+}
+
+/* Adicionando hover nos botões gerais (Ativas, Concluídas) */
+.filter-buttons button:hover {
+  background: #a985fc; 
+  color: white;/* cor de fundo ao passar o mouse nos botões */
+}
+
+
  
 .task-list {
   background: #fff;
@@ -108,6 +135,10 @@ p.subtitle {
   font-size: 15px;
   border: 1px solid #eee;
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.05);
+}
+
+.all:hover{
+  background-color: rgb(197, 121, 207);
 }
  
 .task {
@@ -132,5 +163,9 @@ p.subtitle {
   cursor: pointer;
   font-size: 14px;
   color: #7a3fff;
+}
+
+.task button:hover {
+  text-decoration: underline;
 }
  
