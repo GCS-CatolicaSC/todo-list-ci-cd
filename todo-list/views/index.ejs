@@ -1,52 +1,56 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Minhas Tarefas</title>
   <link rel="stylesheet" href="/stylesheets/style.css">
+  
 </head>
 <body>
   <div class="container">
     <h1>✔ Minhas Tarefas</h1>
     <p class="subtitle">Organize seu dia de forma simples e eficiente</p>
 
+    <!-- Formulário para adicionar nova tarefa -->
     <form action="/tasks" method="POST" class="input-area">
       <input type="text" name="text" placeholder="Digite uma tarefa..." required>
       <button type="submit">+</button>
     </form>
 
+    <!-- Filtros -->
     <div class="filters">
       <span><%= tasks.filter(t => !t.completed).length %> tarefa(s) pendente(s)</span>
       <div class="filter-buttons">
-        <a href="/?filter=all">
-          <button type="button" class="<%= filter === 'all' ? 'active' : '' %>">Todas</button>
-        </a>
-        <a href="/?filter=active">
-          <button type="button" class="<%= filter === 'active' ? 'active' : '' %>">Ativas</button>
-        </a>
-        <a href="/?filter=completed">
-          <button type="button" class="<%= filter === 'completed' ? 'active' : '' %>">Concluídas</button>
-        </a>
+        <a href="/?filter=all"><button type="button" class="<%= filter === 'all' ? 'active' : '' %>">Todas</button></a>
+        <a href="/?filter=active"><button type="button" class="<%= filter === 'active' ? 'active' : '' %>">Ativas</button></a>
+        <a href="/?filter=completed"><button type="button" class="<%= filter === 'completed' ? 'active' : '' %>">Concluídas</button></a>
       </div>
     </div>
 
+    <!-- Lista de tarefas -->
     <div class="task-list">
       <% if (tasks.length === 0) { %>
-        Nenhuma tarefa ainda. Comece adicionando uma!
+        <p>Nenhuma tarefa ainda. Comece adicionando uma!</p>
       <% } else { %>
         <% tasks.forEach((task) => { %>
-          <div class="task <%= task.completed ? 'completed' : '' %>">
-            <span><%= task.text %></span>
-            <div>
+          <div class="task <%= task.completed ? 'completed' : '' %>" data-task-id="<%= task.id %>">
+            <!-- Texto da tarefa -->
+            <span class="task-text"><%= task.text %></span>
+
+            <!-- Formulário de edição (inicialmente oculto) -->
+            <form class="edit-form" action="/tasks/<%= task.id %>/update" method="POST" style="display:none;">
+              <input type="text" name="text" value="<%= task.text %>">
+              <button type="submit">Salvar</button>
+            </form>
+
+            <!-- Botões de ação -->
+            <div class="task-buttons">
               <form action="/tasks/<%= task.id %>/toggle" method="POST" style="display:inline;">
                 <button type="submit"><%= task.completed ? "Desmarcar" : "Concluir" %></button>
               </form>
 
-              <form action="/tasks/<%= task.id %>/update" method="POST" style="display:inline;">
-                <input type="hidden" name="text" value="<%= task.text %>">
-                <button type="submit">Editar</button>
-              </form>
+              <button type="button" class="edit-btn">Editar</button>
 
               <form action="/tasks/<%= task.id %>/delete" method="POST" style="display:inline;">
                 <button type="submit">Excluir</button>
@@ -57,5 +61,30 @@
       <% } %>
     </div>
   </div>
+
+  <!-- JavaScript para edição inline -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const editButtons = document.querySelectorAll('.edit-btn');
+
+      editButtons.forEach(button => {
+        button.addEventListener('click', () => {
+          const taskDiv = button.closest('.task');
+          const taskText = taskDiv.querySelector('.task-text');
+          const editForm = taskDiv.querySelector('.edit-form');
+
+          // Esconder o span e mostrar o formulário
+          taskText.style.display = 'none';
+          editForm.style.display = 'inline';
+          button.style.display = 'none';
+
+          // Coloca o foco no input
+          const input = editForm.querySelector('input[name="text"]');
+          input.focus();
+          input.select();
+        });
+      });
+    });
+  </script>
 </body>
 </html>

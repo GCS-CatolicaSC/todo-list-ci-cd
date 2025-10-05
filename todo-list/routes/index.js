@@ -33,4 +33,31 @@ router.post('/tasks', (req, res) => {
   res.redirect('/');
 });
 
+router.post('/tasks/:id/update', (req, res) => {
+  const id = parseInt(req.params.id);
+  const task = tasks.find(t => t.id === id);
+  if (!task) return res.sendStatus(404);
+
+  task.text = req.body.text || task.text;
+  res.redirect('/');
+});
+
+router.post('/tasks/:id/toggle', (req, res) => {
+  const id = parseInt(req.params.id);
+  const task = tasks.find(t => t.id === id);
+  if (!task) return res.sendStatus(404);
+
+  task.completed = !task.completed;
+  res.redirect('/');
+});
+
+router.post('/tasks/:id/delete', (req, res) => {
+  const id = parseInt(req.params.id);
+  const index = tasks.findIndex(t => t.id === id);
+  if (index === -1) return res.sendStatus(404);
+
+  tasks.splice(index, 1);
+  res.redirect('/');
+});
+
 module.exports = router;
